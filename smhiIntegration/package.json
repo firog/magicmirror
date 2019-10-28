@@ -1,0 +1,21 @@
+{
+  "name": "smhiintegration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch-server": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node ./src/server.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.4",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  },
+  "dependencies": {
+    "apollo-datasource-rest": "^0.6.6",
+    "apollo-server": "^2.9.7",
+    "graphql": "^14.5.8"
+  }
+}
