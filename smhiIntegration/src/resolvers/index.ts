@@ -5,15 +5,18 @@ const resolvers = {
       {
         longitude,
         latitude,
-        time
-      }: { longitude: string; latitude: string; time: string },
+        hour
+      }: { longitude: string; latitude: string; hour: string },
       { dataSources }: { dataSources: any }
     ) => {
-      return await dataSources.smhiApi.getForecast(longitude, latitude, time);
+      return await dataSources.smhiApi.getForecast(longitude, latitude, hour);
     },
     pointForecasts: async (
       _: any,
-      { longitude, latitude }: { longitude: string; latitude: string },
+      {
+        longitude,
+        latitude
+      }: { longitude: string; latitude: string; hour: string },
       { dataSources }: { dataSources: any }
     ) => {
       const result = await dataSources.smhiApi.getAllForecasts(

@@ -3,17 +3,17 @@ export interface PointForecasts {
   timeSeries: TimeSeries[];
 }
 
-interface Geometry {
+export interface Geometry {
   type: string;
   coordinates: string[];
 }
 
-interface TimeSeries {
+export interface TimeSeries {
   validTime: Date;
   parameters: Parameters[];
 }
 
-interface Parameters {
+export interface Parameters {
   name: string;
   levelType: string;
   level: Number;
