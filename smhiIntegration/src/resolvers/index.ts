@@ -19,11 +19,17 @@ const resolvers = {
       }: { longitude: string; latitude: string; hour: string },
       { dataSources }: { dataSources: any }
     ) => {
-      const result = await dataSources.smhiApi.getAllForecasts(
-        longitude,
-        latitude
+      return await dataSources.smhiApi.getAllForecasts(longitude, latitude);
+    },
+    lateTrains: async (
+      _: any,
+      { fromStation, endStation }: { fromStation: string; endStation: string },
+      { dataSources }: { dataSources: any }
+    ) => {
+      return await dataSources.trafikverketApi.getLateTrains(
+        fromStation,
+        endStation
       );
-      return result;
     }
   }
 };

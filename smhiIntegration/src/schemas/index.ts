@@ -1,6 +1,31 @@
 import { gql } from 'apollo-server';
 
 const typeDefs = gql`
+  type LateTrains {
+    lateTrain: [LateTrain]
+  }
+
+  type LateTrain {
+    advertisedTimeAtLocation: Date
+    productInformation: String
+    estimatedTimeAtLocation: Date
+    numberOfMinutesLate: Int
+
+    # AdvertisedTimeAtLocation,
+    #         trainInfo.AdvertisedTrainIdent,
+    #         trainInfo.ProductInformation,
+    #         trainInfo.EstimatedTimeAtLocation,
+    #         numOfMinLate,
+    #         trainInfo.FromLocation.LocationName,
+    #         trainInfo.LocationSignature,
+    #         (trainInfo.departureTime = await getDepartingTrainsInfo(
+    #           trainInfo.FromLocation[0].LocationName,
+    #           trainInfo.AdvertisedTrainIdent,
+    #           new Date(trainInfo.AdvertisedTimeAtLocation)
+    #         )),
+    #         trainInfo.Canceled
+  }
+
   type PointForecast {
     longitude: String
     latitude: String
