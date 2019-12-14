@@ -8,7 +8,6 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <h3>Weatherdata</h3>
         <WeatherContainer client={client} />
       </div>
     </ApolloProvider>

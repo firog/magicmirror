@@ -3,15 +3,21 @@ import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import WeatherTable from '../components/WeatherTable';
 
+const uppsalaLong = '17.6389';
+const uppsalaLat = '59.8586';
+
 const WEATHER_REPORTS = gql`
   {
-    pointForecasts(longitude: "17.6389", latitude: "59.8586") {
-      time
-      longitude
-      latitude
-      temperature
-      windSpeed
-      precipitationCategory
+    dailyForecasts(longitude: ${uppsalaLong}, latitude: ${uppsalaLat}) {
+      day
+      hours {
+        longitude
+        latitude
+        temperature
+        windSpeed
+        time
+        precipitationCategory
+      }
     }
   }
 `;
