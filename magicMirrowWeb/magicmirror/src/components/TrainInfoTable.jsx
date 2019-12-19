@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../shared/colors';
-import DailyForecast from './DailyForecast';
+import TrainInfo from './TrainInfo';
 
 const Table = styled.table`
   table-layout: fixed;
@@ -20,13 +20,14 @@ const TableHeader = styled.th`
 
 const TableRow = styled.tr``;
 
-export default function WeatherTable(props) {
-  const dailyForecasts = props.data.dailyForecasts.slice(0, 4);
-  const headers = ['Dag', 'Temperatur', 'Vind', 'Nederbörd'];
+export default function TrainInfoTable(props) {
+  const { lateTrains } = props.data;
+  console.log(props);
+  const headers = ['Avgångstid', 'Från', 'Till', 'Direkttåg', 'Spår'];
 
   return (
     <Table>
-      {/* <thead>
+      <thead>
         <TableRow>
           {headers.map((header, i) => {
             return (
@@ -36,10 +37,10 @@ export default function WeatherTable(props) {
             );
           })}
         </TableRow>
-      </thead> */}
+      </thead>
       <tbody>
-        {dailyForecasts.map((data, i) => {
-          return <DailyForecast key={i} data={data}></DailyForecast>;
+        {lateTrains.map((lateTrain, i) => {
+          return <TrainInfo key={i} lateTrain={lateTrain}></TrainInfo>;
         })}
       </tbody>
     </Table>

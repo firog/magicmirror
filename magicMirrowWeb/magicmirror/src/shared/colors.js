@@ -5,5 +5,6 @@ export const colors = {
   lightBlueGrey: '#5b6c7a',
   green: '#1bff80',
   borderColor: '#afb1ba',
-  activeCell: '#b7e9ed'
+  activeCell: '#404040',
+  white: '#fff'
 };

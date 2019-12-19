@@ -8,8 +8,9 @@ const uppsalaLat = '59.8586';
 
 const WEATHER_REPORTS = gql`
   {
-    dailyForecasts(longitude: ${uppsalaLong}, latitude: ${uppsalaLat}) {
+    dailyForecasts(longitude: "17.6389", latitude: "59.8586") {
       day
+      weekDay
       hours {
         longitude
         latitude
@@ -17,6 +18,7 @@ const WEATHER_REPORTS = gql`
         windSpeed
         time
         precipitationCategory
+        weatherSymbol
       }
     }
   }
@@ -28,5 +30,5 @@ export default function WeatherContainer() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  return <WeatherTable data={data} />;
+  return <WeatherTable data={data}></WeatherTable>;
 }

@@ -3,14 +3,32 @@ import { PointForecast } from '../../../interfaces/pointForecast';
 import { PrecipitationCategory } from '../../../enums/precipitationEnum';
 import { ForecastDay } from '../../../interfaces/forecastDay';
 
+const getWeekDay = day => {
+  switch (day) {
+    case 0:
+      return 'Söndag';
+    case 1:
+      return 'Måndag';
+    case 2:
+      return 'Tisdag';
+    case 3:
+      return 'Onsdag';
+    case 4:
+      return 'Torsdag';
+    case 5:
+      return 'Fredag';
+    case 6:
+      return 'Lördag';
+  }
+};
+
 export const allForecastsReducer = (foreCasts: PointForecasts) => {
   let mappedForecasts: PointForecast[] = [];
   foreCasts.timeSeries.map(t => {
     const temperature = getNamedParameter(t, 't', 'Cel');
-
     const windSpeed = getNamedParameter(t, 'ws', 'm/s');
-
     const precipitationCategory = getNamedParameter(t, 'pcat');
+    const weatherSymbol = getNamedParameter(t, 'Wsymb2');
 
     mappedForecasts.push({
       longitude: foreCasts.geometry.coordinates[0][0],
@@ -18,6 +36,7 @@ export const allForecastsReducer = (foreCasts: PointForecasts) => {
       temperature,
       windSpeed,
       time: t.validTime,
+      weatherSymbol,
       precipitationCategory:
         PrecipitationCategory[parseInt(precipitationCategory)]
     } as PointForecast);
@@ -32,7 +51,11 @@ export const allForecastsReducer = (foreCasts: PointForecasts) => {
     let existingDate = mappedDaysWithTime.find(x => x.day === currentDate);
 
     if (!existingDate) {
-      mappedDaysWithTime.push({ day: currentDate, hours: [] });
+      mappedDaysWithTime.push({
+        day: currentDate,
+        weekDay: formattedDate.weekDay,
+        hours: []
+      });
       existingDate = mappedDaysWithTime.find(x => x.day === currentDate);
     }
 
@@ -88,7 +111,10 @@ const splitDate = (timeStamp: string) => {
   const dateSplit = dateLocale.split(' ');
   const month = date.getUTCMonth() + 1;
   const day = date.getUTCDate();
+  const weekDay = getWeekDay(date.getUTCDay());
+
   return {
+    weekDay,
     date: `${day}/${month}`,
     time: dateSplit[1]
   };

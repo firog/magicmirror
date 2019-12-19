@@ -7,37 +7,27 @@ const typeDefs = gql`
 
   type LateTrain {
     departureStation: String
+    departureTime: String
     arrivalStation: String
-    advertisedTimeAtLocation: String
-    productInformation: String
-    estimatedTimeAtLocation: String
-    numberOfMinutesLate: Int
-
-    # AdvertisedTimeAtLocation,
-    #         trainInfo.AdvertisedTrainIdent,
-    #         trainInfo.ProductInformation,
-    #         trainInfo.EstimatedTimeAtLocation,
-    #         numOfMinLate,
-    #         trainInfo.FromLocation.LocationName,
-    #         trainInfo.LocationSignature,
-    #         (trainInfo.departureTime = await getDepartingTrainsInfo(
-    #           trainInfo.FromLocation[0].LocationName,
-    #           trainInfo.AdvertisedTrainIdent,
-    #           new Date(trainInfo.AdvertisedTimeAtLocation)
-    #         )),
-    #         trainInfo.Canceled
+    trainNumber: String
+    productInfo: String
+    nonStop: Boolean
+    track: String
   }
 
   type HourlyForecast {
+    weekDay: String
     longitude: String
     latitude: String
     temperature: String
     windSpeed: String
     time: String
     precipitationCategory: Precipitation
+    weatherSymbol: Int
   }
 
   type DailyForecast {
+    weekDay: String
     day: String
     hours: [HourlyForecast]
   }
@@ -57,7 +47,7 @@ const typeDefs = gql`
   # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
     dailyForecasts(longitude: String!, latitude: String!): [DailyForecast]
-    lateTrains(fromStation: String, arrivalStation: String): [LateTrain]
+    lateTrains(fromStation: String, endStation: String): [LateTrain]
   }
 `;
 
