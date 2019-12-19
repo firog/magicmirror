@@ -1,15 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { colors } from '../shared/colors';
-import { getWeatherSymbol } from '../utils/getWeatherSymbol';
-
-const TableHeader = styled.th`
-  color: ${colors.white};
-  text-align: center;
-  font-family: times;
-  padding-right: 10px;
-  background-color: ${props => props.isActive && colors.activeCell};
-`;
 
 const TableRow = styled.tr``;
 

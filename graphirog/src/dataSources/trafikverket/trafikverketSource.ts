@@ -17,7 +17,7 @@ export class TrafikverketApi extends RESTDataSource {
 
   formatTime = time => {
     const date = new Date(time);
-    let hours = date.getUTCHours();
+    let hours = date.getUTCHours() + 1;
     let minutes = date.getUTCMinutes();
 
     let hourString;

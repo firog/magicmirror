@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { colors } from '../shared/colors';
 import DailyForecast from './DailyForecast';
 
+const Wrapper = styled.div`
+  display: flex;
+`;
+
 const Table = styled.table`
   table-layout: fixed;
   border-collapse: collapse;
-  // outline: solid;
-  // color: ${colors.white};
 `;
 
 const TableHeader = styled.th`
@@ -22,26 +24,28 @@ const TableRow = styled.tr``;
 
 export default function WeatherTable(props) {
   const dailyForecasts = props.data.dailyForecasts.slice(0, 4);
-  const headers = ['Dag', 'Temperatur', 'Vind', 'Nederbörd'];
+  const headers = ['', '', '', ''];
 
   return (
-    <Table>
-      {/* <thead>
-        <TableRow>
-          {headers.map((header, i) => {
-            return (
-              <TableHeader key={i} scope="col">
-                {header}
-              </TableHeader>
-            );
+    <Wrapper>
+      <Table>
+        <thead>
+          <TableRow>
+            {headers.map((header, i) => {
+              return (
+                <TableHeader key={i} scope="col">
+                  {header}
+                </TableHeader>
+              );
+            })}
+          </TableRow>
+        </thead>
+        <tbody>
+          {dailyForecasts.map((data, i) => {
+            return <DailyForecast key={i} data={data}></DailyForecast>;
           })}
-        </TableRow>
-      </thead> */}
-      <tbody>
-        {dailyForecasts.map((data, i) => {
-          return <DailyForecast key={i} data={data}></DailyForecast>;
-        })}
-      </tbody>
-    </Table>
+        </tbody>
+      </Table>
+    </Wrapper>
   );
 }
