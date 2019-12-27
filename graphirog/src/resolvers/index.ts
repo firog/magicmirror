@@ -15,7 +15,6 @@ const resolvers = {
       { fromStation, endStation }: { fromStation: string; endStation: string },
       { dataSources }: { dataSources: any }
     ) => {
-      console.log('endStation', endStation);
       return await dataSources.trafikverketApi.getLateTrains(
         fromStation,
         endStation

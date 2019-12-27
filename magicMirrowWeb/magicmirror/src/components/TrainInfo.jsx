@@ -7,7 +7,8 @@ const TableRow = styled.tr``;
 const TableData = styled.td`
   color: ${props => (props.isActive ? colors.activeCell : colors.white)};
   height: 65px;
-  width: 90px;
+  width: 75px;
+  padding-right: 5px;
   text-align: center;
   background-color: ${props => props.isActive && colors.activeCell};
   transition: background-color 0.5s;
@@ -31,8 +32,6 @@ export default function TrainInfo(props) {
     nonStop,
     track
   } = lateTrain;
-
-  console.log(props);
 
   return (
     <TableRow>

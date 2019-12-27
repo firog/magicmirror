@@ -16,7 +16,8 @@ const TableRow = styled.tr``;
 const TableData = styled.td`
   color: ${props => (props.isActive ? colors.activeCell : colors.white)};
   height: 65px;
-  width: 90px;
+  width: 100%;
+  padding-right: 15px;
   text-align: center;
   background-color: ${props => props.isActive && colors.activeCell};
   transition: background-color 0.5s;

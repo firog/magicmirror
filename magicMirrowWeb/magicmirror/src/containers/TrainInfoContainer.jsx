@@ -16,7 +16,9 @@ const TRAIN_INFO = gql`
 `;
 
 export default function TrainInfoContainer() {
-  const { loading, error, data } = useQuery(TRAIN_INFO);
+  const { loading, error, data } = useQuery(TRAIN_INFO, {
+    pollInterval: 1000 * 60 * 30
+  });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 

@@ -25,7 +25,9 @@ const WEATHER_REPORTS = gql`
 `;
 
 export default function WeatherContainer() {
-  const { loading, error, data } = useQuery(WEATHER_REPORTS);
+  const { loading, error, data } = useQuery(WEATHER_REPORTS, {
+    pollInterval: 1000 * 60 * 30
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
