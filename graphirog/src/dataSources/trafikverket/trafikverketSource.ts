@@ -6,6 +6,8 @@ export class TrafikverketApi extends RESTDataSource {
     this.baseURL = 'http://api.trafikinfo.trafikverket.se/v1.3/data.json';
   }
 
+  token = '21b22aefbd9e4423956327483dfb41d4';
+
   mapLocation = location => {
     switch (location) {
       case 'Cst':
@@ -38,11 +40,45 @@ export class TrafikverketApi extends RESTDataSource {
     return hourString + ':' + minuteString;
   };
 
+  async getTrainAnnouncments(station: string) {
+    let body = `
+    <REQUEST>
+      <LOGIN authenticationkey="${this.token}" />
+      <QUERY objecttype="TrainMessage" schemaversion="1.3">
+        <FILTER>
+              <EQ name="AffectedLocation" value="${station}" />
+        </FILTER>
+        <INCLUDE>StartDateTime</INCLUDE>
+        <INCLUDE>LastUpdateDateTime</INCLUDE>
+        <INCLUDE>ExternalDescription</INCLUDE>
+        <INCLUDE>ReasonCodeText</INCLUDE>
+      </QUERY>
+    </REQUEST>
+    `;
+
+    const response = await this.post('', body);
+
+    console.log(response.RESPONSE.RESULT);
+
+    const trainAnnouncments = response.RESPONSE.RESULT[0].TrainMessage;
+
+    const trainAnnouncmentsMapped = trainAnnouncments.map(announcement => {
+      return {
+        reasonCodeText: announcement.ReasonCodeText,
+        startDateTime: announcement.StartDateTime,
+        lastUpdatedDateTime: announcement.LastUpdateDateTime,
+        description: announcement.ExternalDescription
+      };
+    });
+
+    return trainAnnouncmentsMapped;
+  }
+
   async getLateTrains(fromStation: string, endStation: string) {
     let body = `
     <REQUEST>
-      <LOGIN authenticationkey="21b22aefbd9e4423956327483dfb41d4" />
-      <QUERY objecttype="TrainAnnouncement" limit="4" schemaversion="1.3" orderby="AdvertisedTimeAtLocation">
+    <LOGIN authenticationkey="${this.token}" />
+    <QUERY objecttype="TrainAnnouncement" limit="4" schemaversion="1.3" orderby="AdvertisedTimeAtLocation">
             <FILTER>
                   <AND>
                         <EQ name="ActivityType" value="Avgang" />

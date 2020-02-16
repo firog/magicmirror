@@ -2,6 +2,7 @@ import { PointForecasts, TimeSeries } from '../../../interfaces/pointForecasts';
 import { PointForecast } from '../../../interfaces/pointForecast';
 import { PrecipitationCategory } from '../../../enums/precipitationEnum';
 import { ForecastDay } from '../../../interfaces/forecastDay';
+import { getSunTime } from '../../../utils/sunTimeCalc';
 
 const getWeekDay = day => {
   switch (day) {
@@ -29,6 +30,20 @@ export const allForecastsReducer = (foreCasts: PointForecasts) => {
     const windSpeed = getNamedParameter(t, 'ws', 'm/s');
     const precipitationCategory = getNamedParameter(t, 'pcat');
     const weatherSymbol = getNamedParameter(t, 'Wsymb2');
+    console.log(foreCasts);
+    const latitude = foreCasts.geometry.coordinates[0][1];
+    const longitude = foreCasts.geometry.coordinates[0][0];
+    const sunTimeData = getSunTime(
+      new Date(t.validTime),
+      parseInt(latitude, 10),
+      parseInt(longitude, 10)
+    );
+
+    console.log(foreCasts);
+
+    const sunrise = `${sunTimeData.sunrise.getHours()}:${sunTimeData.sunrise.getMinutes()}`;
+    const sunset = `${sunTimeData.sunset.getHours()}:${sunTimeData.sunset.getMinutes()}`;
+    console.log(sunrise);
 
     mappedForecasts.push({
       longitude: foreCasts.geometry.coordinates[0][0],
@@ -38,7 +53,9 @@ export const allForecastsReducer = (foreCasts: PointForecasts) => {
       time: t.validTime,
       weatherSymbol,
       precipitationCategory:
-        PrecipitationCategory[parseInt(precipitationCategory)]
+        PrecipitationCategory[parseInt(precipitationCategory)],
+      sunset,
+      sunrise
     } as PointForecast);
   });
 
@@ -78,14 +95,29 @@ export const forecastReducer = (foreCast: PointForecasts, hour: string) => {
 
   const precipitationCategory = getNamedParameter(timeSeries, 'pcat');
 
+  const latitude = foreCast.geometry.coordinates[0][1];
+  const longitude = foreCast.geometry.coordinates[0][0];
+  const sunTimeData = getSunTime(
+    parseInt(latitude, 10),
+    parseInt(longitude, 10)
+  );
+
+  const sunrise = `${sunTimeData.sunrise.getHours() +
+    1}:${sunTimeData.sunrise.getMinutes()}`;
+  const sunset = `${sunTimeData.sunset.getHours() +
+    1}:${sunTimeData.sunset.getMinutes()}`;
+  console.log(sunTimeData);
+
   return {
-    longitude: foreCast.geometry.coordinates[0][0],
-    latitude: foreCast.geometry.coordinates[0][1],
+    longitude,
+    latitude,
     temperature,
     windSpeed,
     time: timeSeries.validTime,
     precipitationCategory:
-      PrecipitationCategory[parseInt(precipitationCategory)]
+      PrecipitationCategory[parseInt(precipitationCategory)],
+    sunset,
+    sunrise
   };
 };
 

@@ -19,6 +19,13 @@ const resolvers = {
         fromStation,
         endStation
       );
+    },
+    stationAnnouncement: async (
+      _: any,
+      station: string,
+      { dataSources }: { dataSources: any }
+    ) => {
+      return await dataSources.trafikverketApi.getTrainAnnouncments(station);
     }
   }
 };

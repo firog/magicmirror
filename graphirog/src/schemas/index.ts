@@ -5,6 +5,13 @@ const typeDefs = gql`
     lateTrain: [LateTrain]
   }
 
+  type StationAnnouncement {
+    reasonCodeText: String
+    startDateTime: String
+    lastUpdatedDateTime: String
+    description: String
+  }
+
   type LateTrain {
     departureStation: String
     departureTime: String
@@ -24,6 +31,8 @@ const typeDefs = gql`
     time: String
     precipitationCategory: Precipitation
     weatherSymbol: Int
+    sunrise: String
+    sunset: String
   }
 
   type DailyForecast {
@@ -48,6 +57,7 @@ const typeDefs = gql`
   type Query {
     dailyForecasts(longitude: String!, latitude: String!): [DailyForecast]
     lateTrains(fromStation: String, endStation: String): [LateTrain]
+    stationAnnouncement(station: String): [StationAnnouncement]
   }
 `;
 

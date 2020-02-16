@@ -5,4 +5,6 @@ export interface PointForecast {
   temperature: string;
   windSpeed: string;
   precipitationCategory: string;
+  sunset: string;
+  sunrise: string;
 }

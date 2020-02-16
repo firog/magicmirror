@@ -2,6 +2,7 @@ import { ApolloServer } from 'apollo-server';
 import typeDefs from './schemas/index';
 import resolvers from './resolvers/index';
 import integrations from './dataSources';
+import { getSunTime } from './utils/sunTimeCalc';
 
 const server = new ApolloServer({
   typeDefs,
