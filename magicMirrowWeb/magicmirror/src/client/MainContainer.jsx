@@ -1,14 +1,16 @@
-import React from 'react';
-import WeatherContainer from '../containers/WeatherContainer';
-import TrainInfoContainer from '../containers/TrainInfoContainer';
-import TrainAnnouncmentsContainer from '../containers/TrainAnnouncmentsContainer';
+import React from 'react'
+import WeatherContainer from '../containers/WeatherContainer'
+import TrainInfoContainer from '../containers/TrainInfoContainer'
+import TrainAnnouncmentsContainer from '../containers/TrainAnnouncmentsContainer'
+import TodayInfoContainer from '../containers/TodayInfoContainer'
 
 export default function MainContainer({ client }) {
   return (
-    <React.Fragment>
-      <WeatherContainer client={client}></WeatherContainer>
-      <TrainInfoContainer client={client}></TrainInfoContainer>
-      <TrainAnnouncmentsContainer client={client}></TrainAnnouncmentsContainer>
-    </React.Fragment>
-  );
+    <>
+      <TodayInfoContainer client={client} />
+      <WeatherContainer client={client} />
+      <TrainInfoContainer client={client} />
+      <TrainAnnouncmentsContainer client={client} />
+    </>
+  )
 }

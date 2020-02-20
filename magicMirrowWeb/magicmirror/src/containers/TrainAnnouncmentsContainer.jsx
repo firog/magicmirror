@@ -18,6 +18,7 @@ export default function TrainAnnouncmentsContainer() {
   const { loading, error, data } = useQuery(STATION_ANNOUNCEMENT, {
     pollInterval: 1000 * 60 * 30
   });
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 

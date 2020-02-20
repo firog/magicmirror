@@ -30,7 +30,7 @@ export const allForecastsReducer = (foreCasts: PointForecasts) => {
     const windSpeed = getNamedParameter(t, 'ws', 'm/s');
     const precipitationCategory = getNamedParameter(t, 'pcat');
     const weatherSymbol = getNamedParameter(t, 'Wsymb2');
-    console.log(foreCasts);
+
     const latitude = foreCasts.geometry.coordinates[0][1];
     const longitude = foreCasts.geometry.coordinates[0][0];
     const sunTimeData = getSunTime(
@@ -39,11 +39,8 @@ export const allForecastsReducer = (foreCasts: PointForecasts) => {
       parseInt(longitude, 10)
     );
 
-    console.log(foreCasts);
-
     const sunrise = `${sunTimeData.sunrise.getHours()}:${sunTimeData.sunrise.getMinutes()}`;
     const sunset = `${sunTimeData.sunset.getHours()}:${sunTimeData.sunset.getMinutes()}`;
-    console.log(sunrise);
 
     mappedForecasts.push({
       longitude: foreCasts.geometry.coordinates[0][0],
@@ -106,7 +103,6 @@ export const forecastReducer = (foreCast: PointForecasts, hour: string) => {
     1}:${sunTimeData.sunrise.getMinutes()}`;
   const sunset = `${sunTimeData.sunset.getHours() +
     1}:${sunTimeData.sunset.getMinutes()}`;
-  console.log(sunTimeData);
 
   return {
     longitude,

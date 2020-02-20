@@ -21,7 +21,9 @@ export default function StationInfo(props) {
   const { stationAnnouncement } = props.data;
   return (
     <Wrapper>
-      {stationAnnouncement.length && <InfoBox>{stationAnnouncement}</InfoBox>}
+      {stationAnnouncement.length > 0 && (
+        <InfoBox>{stationAnnouncement}</InfoBox>
+      )}
     </Wrapper>
   );
 }
